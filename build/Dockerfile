@@ -1,7 +1,7 @@
 # Dockerfile for Taskboard with nginx and sqlite.
 
 FROM ubuntu:trusty
-MAINTAINER Alex van den Hoogen <alex.van.den.hoogen@geodan.nl>
+MAINTAINER David Magaha <dmagaha68@gmail.com>
 
 RUN apt-get update && \
     apt-get install -yq --no-install-recommends git wget nginx php5-fpm php5-sqlite sqlite3 ca-certificates pwgen php5-cli && \
