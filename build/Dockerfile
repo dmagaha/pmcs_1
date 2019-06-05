@@ -12,7 +12,7 @@ RUN echo "cgi.fix_pathinfo = 0;" >> /etc/php5/fpm/php.ini && \
     echo "daemon off;" >> /etc/nginx/nginx.conf && \
     mkdir -p /var/www
 
-RUN git clone https://github.com/kiswa/TaskBoard.git /var/www && \
+RUN git clone https://github.com/dmagaha/pmcs_1.git /var/www && \
     chmod 777 $(find /var/www -type d)
 
 RUN cd /var/www/ && ./build/composer.phar install
