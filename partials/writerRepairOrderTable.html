@@ -1,0 +1,64 @@
+<div id="checkInTable" class="table-responsive">
+    <table class="table table-striped"> 
+        <thead>
+            <tr>
+    		<th>Rental Date</th>
+    		<th>Check-In Date</th>
+    		<th>Due Date</th>
+    		<th>RO #</th>
+    		<th>Year</th>
+    		<th>Make</th>
+    		<th>Model</th>
+    		<th>Color</th>
+    		<th>Repair Lane</th>
+    		<th>Name</th> 
+    		<th>Email</th>
+    		<th>Phone Number</th>
+    		<th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-if="loadingRepairOrders">
+                <td colspan="4" align="center"><span class="fa fa-refresh fa-spin"></span> Loading Repair Orders...</td>
+            </tr>
+            <tr data-ng-if="!loadingRepairOrders && !repairOrders.length">
+                <td colspan="4" align="center">Something went wrong while loading repair orders. Please refresh the page.</td>
+            </tr>
+            <tr data-ng-repeat="ro in repairOrders">
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.rental_date}}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.rental_date }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.check_in_date}}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.check_in_date }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.due_date}}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.due_date }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000"><a role="link" id="roLink{{ ro.id }}" data-toggle="modal" data-target=".repairOrderViewModal" data-ng-click="openRO(ro)" title="View RO"> {{ ro.repair_order_number }}</td>
+                <td data-ng-if="ro.total_loss == 0"><a role="link" id="roLink{{ ro.id }}" data-toggle="modal" data-target=".repairOrderViewModal" data-ng-click="openRO(ro)" title="View RO"> {{ ro.repair_order_number }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.year }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.year }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.make }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.make }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.model }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.model }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.color }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.color }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000"><p>{{ repairLaneNames[ro.repair_lane] }}</p><p><a role="link" id="totalLossLink{{ ro.id }}" data-toggle="modal" data-target=".repairOrderViewModal" data-ng-click="openTotalLossConfirmation(ro)" title="Total Loss">(Total Loss)</a></p></td>
+                <td data-ng-if="(ro.total_loss == 0 && ro.repair_lane != 8)">{{ repairLaneNames[ro.repair_lane] }}</td>
+                <td data-ng-if="(ro.total_loss == 0 && ro.repair_lane == 8)"><p>{{ repairLaneNames[ro.repair_lane] }}</p><p><a role="link" id="detailCleanupLink{{ ro.id }}" data-toggle="modal" data-target=".repairOrderDetailCleanupModal" data-ng-click="openDetailCleanupConfirmation(ro)" title="Detail Cleanup">{{ ro.status }}</a></p></td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.name }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.name }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.email }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.email }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.phone_number }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.phone_number }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000"><a role="button" id="addEstimate" class="btn btn-info" data-toggle="modal" data-target=".writerEstimateModal" data-ng-click="openRO(ro)" title="Estimate">
+                <span class="fa fa-plus"></span> Estimate
+                </a>
+		</td>
+                <td data-ng-if="ro.total_loss == 0"><a role="button" id="addEstimate" class="btn btn-info" data-toggle="modal" data-target=".writerEstimateModal" data-ng-click="openRO(ro)" title="Estimate">
+                <span class="fa fa-plus"></span> Estimate
+                </a>
+		</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

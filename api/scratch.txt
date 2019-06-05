@@ -1,0 +1,153 @@
+// total loss
+$app->post('/totalLoss', function() use($app, $jsonResponse) {
+    $data = json_decode($app->environment['slim.input']);
+
+    if (validateToken()) {
+        $repairOrder = R::load('item', $data->id);
+
+        $repairOrder->totalLoss = 1;
+
+        R::store($repairOrder);
+    }
+    $app->response->setBody($jsonResponse->asJson());
+});
+
+// not total loss
+$app->post('/notTotalLoss', function() use($app, $jsonResponse) {
+    $data = json_decode($app->environment['slim.input']);
+
+    if (validateToken()) {
+        $repairOrder = R::load('item', $data->id);
+
+        $repairOrder->totalLoss = 0;
+
+        if ($data->moveToTeardown) {
+                $repairOrder->repairLane = 1;
+                $repairOrder->position = getNextItemPosition(2);
+                $board->xownLane[2]->ownItems[] = $repairOrder;
+        }
+        else if ($data->moveToAwaitingParts) {
+                $repairOrder->repairLane = 3;
+                $repairOrder->position = getNextItemPosition(4);
+                $board->xownLane[4]->ownItems[] = $repairOrder;
+        }
+        else if ($data->moveToBody) {
+                $repairOrder->repairLane = 4;
+                $repairOrder->position = getNextItemPosition(5);
+                $board->xownLane[5]->ownItems[] = $repairOrder;
+        }
+        else if ($data->moveToSupplement) {
+                $repairOrder->repairLane = 2;
+                $repairOrder->position = getNextItemPosition(3);
+                $board->xownLane[3]->ownItems[] = $repairOrder;
+        }
+
+        $repairOrder->notTotalLossDate = time();
+        R::store($repairOrder);
+    }
+    $app->response->setBody($jsonResponse->asJson());
+});
+
+
+// start the repair process
+$app->post('/startProcess', function() use($app, $jsonResponse) {
+    $data = json_decode($app->environment['slim.input']);
+
+    if (validateToken()) {
+        $repairOrder = R::load('item', $data->id);
+
+        if ($data->repairLane == 1) {
+                $repairOrder->tearDownStartDate = time();
+        }
+        // don't do anything here should never occur
+        // if ($data->repairLane == 2) {
+                // $repairOrder->supplementEndDate = time();
+        // }
+        // don't do anything here should never occur
+        // if ($data->repairLane == 3) { // awaiting parts done
+                // $repairOrder->awaitingPartsStartDate = time();
+        // }
+        if ($data->repairLane == 4) {
+                $repairOrder->bodyStartDate = time();
+        }
+        if ($data->repairLane == 5) {
+                $repairOrder->refinishStartDate = time();
+        }
+        if ($data->repairLane == 6) {
+                $repairOrder->trimOutStartDate = time();
+        }
+        if ($data->repairLane == 7) {
+                $repairOrder->serviceStartDate = time();
+        }
+
+        R::store($repairOrder);
+    }
+    $app->response->setBody($jsonResponse->asJson());
+});
+
+// end the repair process
+$app->post('/endProcess', function() use($app, $jsonResponse) {
+    $data = json_decode($app->environment['slim.input']);
+
+    if (validateToken()) {
+        //$holidays = new UsHolidays(2019);
+        //$hlist = $holidays->getList();
+        //foreach ($hlist as $v) {
+                //echo "Current value of \$hlist: $v.\n";
+        //}
+
+        $board = R::load('board', 1);
+        $repairOrder = R::load('item', $data->id);
+
+        if ($data->repairLane == 1) {
+                $repairOrder->tearDownEndDate = time();
+                $repairOrder->repairLane = 2;
+                $repairOrder->position = getNextItemPosition(3);
+                $board->xownLane[3]->ownItems[] = $repairOrder;
+        }
+        // don't do anything here should never occur
+        // if ($data->repairLane == 2) {
+                // $repairOrder->supplementEndDate = time();
+                // $repairOrder->repairLane = 3;
+                // $repairOrder->position = getNextItemPosition(4);
+                // $board->xownLane[4]->ownItems[] = $repairOrder;
+        // }
+        // don't do anything here should never occur
+        // if ($data->repairLane == 3) { // awaiting parts done
+                // $repairOrder->awaitingPartsEndDate = time();
+                // $repairOrder->repairLane = 4;
+                // $repairOrder->position = getNextItemPosition(5);
+                // $board->xownLane[5]->ownItems[] = $repairOrder;
+        // }
+        if ($data->repairLane == 4) {
+                $repairOrder->bodyEndDate = time();
+                $repairOrder->repairLane = 5;
+                $repairOrder->position = getNextItemPosition(6);
+                $board->xownLane[6]->ownItems[] = $repairOrder;
+        }
+        if ($data->repairLane == 5) {
+                $repairOrder->refinishEndDate = time();
+                $repairOrder->repairLane = 6;
+                $repairOrder->position = getNextItemPosition(7);
+                $board->xownLane[7]->ownItems[] = $repairOrder;
+        }
+        if ($data->repairLane == 6) {
+                $repairOrder->trimOutEndDate = time();
+                $repairOrder->repairLane = 7;
+                $repairOrder->position = getNextItemPosition(8);
+                $board->xownLane[8]->ownItems[] = $repairOrder;
+        }
+        if ($data->repairLane == 7) {
+                $repairOrder->serviceEndDate = time();
+                $repairOrder->repairLane = 8;
+                $repairOrder->position = getNextItemPosition(9);
+                $board->xownLane[9]->ownItems[] = $repairOrder;
+        }
+
+        R::store($board);
+
+        R::store($repairOrder);
+    }
+    $app->response->setBody($jsonResponse->asJson());
+});
+

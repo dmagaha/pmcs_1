@@ -1,0 +1,52 @@
+<div class="modal shopSettingsModal" data-ng-class="{ fade: currentUser.options.showAnimations }" tabindex="-1" role="dialog" aria-labelledby="userLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" data-ng-controller="ShopFormSettingsCtrl">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true" class="fa fa-times"></span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h3 class="modal-title" id="userLabel" data-ng-if="shopSettingsFormData.isAdd">Add Shop Settings</h3>
+                <h3 class="modal-title" id="userLabel" data-ng-if="!shopSettingsFormData.isAdd">Edit Shop Settings</h3>
+            </div>
+            <div class="modal-body">
+                <form role="form" novalidate data-ng-submit="">
+                    <fieldset data-ng-disabled="shopSettingsFormData.isSaving">
+                        <h4>Settings:</h4>
+                        <div class="form-group col-md-2">
+                            <h5>Hours In a Day:</h5>
+                            <input class="form-control" type="text" placeholder="days" data-ng-model="shopSettingsFormData.hoursInDay">
+                        </div>
+                	<div class="form-group col-md-2">
+                            <h5>Tear Down Days:</h5>
+                            <input class="form-control" type="text" placeholder="days" data-ng-model="shopSettingsFormData.tearDownDays">
+                	</div>
+                	<div class="form-group col-md-2">
+                            <h5>Body Days:</h5>
+                            <input class="form-control" type="text" placeholder="days" data-ng-model="shopSettingsFormData.bodyDays">
+                	</div>
+                	<div class="form-group col-md-2">
+                            <h5>Refinish Days:</h5>
+                            <input class="form-control" type="text" placeholder="days" data-ng-model="shopSettingsFormData.refinishDays">
+                	</div>
+                	<div class="form-group col-md-2">
+                            <h5>Trim Out Days:</h5>
+                            <input class="form-control" type="text" placeholder="days" data-ng-model="shopSettingsFormData.trimOutDays">
+                	</div>
+                	<div class="form-group col-md-2">
+                            <h5>Service Days:</h5>
+                            <input class="form-control" type="text" placeholder="days" data-ng-model="shopSettingsFormData.serviceDays">
+                	</div>
+	                <div class="clearfix"></div>
+                        <div class="modal-footer">
+                            <button type="submit" id="modalAddShopSettings" class="btn btn-info" data-ng-click="addShopSettings(shopSettingsFormData)" data-ng-if="shopSettingsFormData.isAdd">
+                                <span class="fa fa-plus"></span> Add Shop Settings
+                            </button>
+                            <a class="btn btn-default" data-ng-click="shopSettingsFormData.cancel()">Cancel</a>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

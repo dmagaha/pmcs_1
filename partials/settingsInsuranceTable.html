@@ -1,0 +1,29 @@
+<div id="insuranceTable" class="table-responsive">
+    <h4>PMCS Insurance Companies</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th><th>Cycle Time (In Days)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-if="loadingInsurance">
+                <td colspan="4" align="center"><span class="fa fa-refresh fa-spin"></span> Loading insurance...</td>
+            </tr>
+            <tr data-ng-if="!loadingInsurance && !insurances.length">
+                <td colspan="4" align="center">Something went wrong while loading insurance companies. Please refresh the page.</td>
+            </tr>
+            <tr data-ng-repeat="insurance in insurances">
+                <td>{{ insurance.name }}</td>
+                <td>{{ insurance.cycle_time }}</td>
+            </tr>
+        </tbody>
+    </table>
+<!--    <div data-ng-if="currentUser.isAdmin == '1'">-->
+        <p>
+            <a role="button" id="addInsurance" class="btn btn-info" data-toggle="modal" data-target=".insuranceModal" data-ng-click="openAddInsurance()" title="Add Insurance">
+                <span class="fa fa-plus"></span> Add Insurance
+            </a>
+        </p>
+    <!--</div>-->
+</div>

@@ -1,0 +1,75 @@
+<div id="checkInTable" class="table-responsive">
+    <table class="table table-striped"> 
+        <thead>
+            <tr>
+    		<th>Drop Off Date</th>
+    		<th>Check-In Date</th>
+    		<th>RO #</th>
+    		<th>Year</th>
+    		<th>Color</th>
+    		<th>Make</th>
+    		<th>Model</th>
+    		<th>Team</th>
+    		<th>Repair Lane</th>
+    		<th>Name</th> 
+    		<th>Email</th>
+    		<th>Phone Number</th>
+    		<th>Cell Number</th>
+    		<th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-if="loadingRepairOrders">
+                <td colspan="4" align="center"><span class="fa fa-refresh fa-spin"></span> Loading Repair Orders...</td>
+            </tr>
+            <tr data-ng-if="!loadingRepairOrders && !repairOrders.length">
+                <td colspan="4" align="center">Something went wrong while loading repair orders. Please refresh the page.</td>
+            </tr>
+            <tr data-ng-repeat="ro in repairOrders">
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.drop_off_date }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.drop_off_date }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.check_in_date }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.check_in_date }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000"><a role="link" id="roLink{{ ro.id }}" data-toggle="modal" data-target=".repairOrderViewModal" data-ng-click="openRO(ro)" title="View RO"> {{ ro.repair_order_number }}</td>
+                <td data-ng-if="ro.total_loss == 0"><a role="link" id="roLink{{ ro.id }}" data-toggle="modal" data-target=".repairOrderViewModal" data-ng-click="openRO(ro)" title="View RO"> {{ ro.repair_order_number }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.year }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.year }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.color }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.color }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.make }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.make }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.model }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.model }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ teamNames[ro.team-1].name }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ teamNames[ro.team-1].name }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000"">{{ repairLaneNames[ro.repair_lane] }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ repairLaneNames[ro.repair_lane] }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.name }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.name }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.email }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.email }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.phone_number }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.phone_number }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">{{ ro.cell }}</td>
+                <td data-ng-if="ro.total_loss == 0">{{ ro.cell }}</td>
+                <td data-ng-if="ro.total_loss == 1" bgcolor="#cc0000">
+                <p><a role="button" id="addCheckOut_{{ ro.repair_order_number }}" class="btn btn-info" data-ng-click="openAddCheckout(ro)" title="Check Out">
+                <span class="fa fa-plus"></span> Check Out
+                </a>
+                </td>
+                <td data-ng-if="ro.total_loss == 0">
+                <p><a role="button" id="addCheckOut_{{ ro.repair_order_number }}" class="btn btn-info" data-ng-click="openAddCheckout(ro)" title="Check Out">
+                <span class="fa fa-plus"></span> Check Out
+                </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div> <!-- data-ng-if="currentUser.isAdmin == '1'">-->
+        <p>
+            <a role="button" id="addCheckIn" class="btn btn-info" data-toggle="modal" data-target=".frontDeskRepairOrderModal" data-ng-click="checkInFormData.reset()" title="Check In">
+                Check In
+            </a>
+        </p>
+    </div>
+</div>

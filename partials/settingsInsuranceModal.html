@@ -1,0 +1,33 @@
+<div class="modal insuranceModal" data-ng-class="{ fade: currentUser.options.showAnimations }" tabindex="-1" role="dialog" aria-labelledby="insuranceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" id="addEdit" data-ng-controller="InsuranceFormSettingsCtrl">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true" class="fa fa-times"></span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h3 class="modal-title" id="insuranceLabel" data-ng-if="insuranceFormData.isAdd">Add Insurance</h3>
+                <h3 class="modal-title" id="insuranceLabel" data-ng-if="!insuranceFormData.isAdd">Edit Insurance</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" data-ng-class="{ 'has-error': insuranceFormData.insuranceNameError }">
+                            <h5><span data-ng-if="!insuranceFormData.isAdd">Change </span>Insurance Name</h5>
+                            <input class="form-control" type="text" placeholder="Insurance Name" data-ng-model="insuranceFormData.name" data-focus="insuranceFormData.setFocus">
+                </div>
+	        <div class="form-group">
+       		             <h5>Cycle Time</h5>
+                   	     <input class="form-control" type="text" id="cycleTime" data-ng-model="insuranceFormData.cycleTime">
+       		</div>
+	    </div>
+            <div class="modal-footer">
+                            <button type="submit" id="modalAddInsurance" class="btn btn-info" data-ng-click="addInsurance(insuranceFormData)" data-ng-if="insuranceFormData.isAdd">
+                                <span class="fa fa-plus"></span> Add Insurance
+                            </button>
+                            <button type="submit" id="modalEditInsurance" class="btn btn-info" data-ng-click="editInsurance(insuranceFormData)" data-ng-if="!insuranceFormData.isAdd">
+                                <span class="fa fa-save"></span> Save Insurance
+                            </button>
+                            <a class="btn btn-default" data-ng-click="insuranceFormData.cancel()">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

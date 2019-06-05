@@ -1,0 +1,72 @@
+<div id="checkInTable" class="table-responsive">
+    <table class="table table-striped"> 
+        <thead>
+            <tr>
+    		<th>RO #</th>
+    		<th>Rental Date</th>
+    		<th>Check-In Date</th>
+    		<th>Estimate Written</th>
+    		<th>Assigned</th>
+    		<th>Tear Down Start</th>
+    		<th>Tear Down End</th>
+    		<th>Tear Down Due</th>
+    		<th>Parts Ordered</th>
+    		<th>Parts Received</th>
+    		<th>Parts Back Ordered</th>
+    		<th>Body Start</th>
+    		<th>Body End</th>
+    		<th>Body Due</th>
+    		<th>Refinish Start</th>
+    		<th>Refinish End</th>
+    		<th>Refinish Due</th>
+    		<th>Trim Out Start</th>
+    		<th>Trim Out End</th>
+    		<th>Trim Out Due</th>
+    		<th>Service Start</th>
+    		<th>Service End</th>
+    		<th>Service Due</th>
+    		<th>Cleanup Start</th>
+    		<th>Cleanup End</th>
+    		<th>Cleanup Due</th>
+    		<th>Check Out Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-if="loadingRepairOrders">
+                <td colspan="4" align="center"><span class="fa fa-refresh fa-spin"></span> Loading Repair Orders...</td>
+            </tr>
+            <tr data-ng-if="!loadingRepairOrders && !repairOrders.length">
+                <td colspan="4" align="center">Something went wrong while loading repair orders. Please refresh the page.</td>
+            </tr>
+            <tr data-ng-repeat="ro in repairOrders">
+                <td>{{ ro.repair_order_number }}</td>
+                <td>{{ ro.rental_date }}</td>
+                <td>{{ ro.check_in_date }}</td>
+                <td>{{ ro.estimate_date }}</td>
+                <td>{{ ro.assignment_date }}</td>
+                <td>{{ ro.tear_down_start_date }}</td>
+                <td>{{ ro.tear_down_end_date }}</td>
+                <td>{{ ro.tear_down_due_date }}</td>
+                <td>{{ ro.tear_down_start_date }}</td>
+                <td>{{ ro.tear_down_end_date }}</td>
+                <td>{{ ro.tear_down_due_date }}</td>
+                <td>{{ ro.body_start_date }}</td>
+                <td>{{ ro.body_end_date }}</td>
+                <td>{{ ro.body_due_date }}</td>
+                <td>{{ ro.refinish_start_date }}</td>
+                <td>{{ ro.refinish_end_date }}</td>
+                <td>{{ ro.refinish_due_date }}</td>
+                <td>{{ ro.trim_out_start_date }}</td>
+                <td>{{ ro.trim_out_end_date }}</td>
+                <td>{{ ro.trim_out_due_date }}</td>
+                <td>{{ ro.service_start_date }}</td>
+                <td>{{ ro.service_end_date }}</td>
+                <td>{{ ro.service_due_date }}</td>
+                <td>{{ ro.cleanup_start_date }}</td>
+                <td>{{ ro.cleanup_end_date }}</td>
+                <td>{{ ro.cleanup_due_date }}</td>
+                <td>{{ ro.check_out_date }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

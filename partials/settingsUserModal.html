@@ -1,0 +1,111 @@
+<div class="modal userModal" data-ng-class="{ fade: currentUser.options.showAnimations }" tabindex="-1" role="dialog" aria-labelledby="userLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" data-ng-controller="UserFormSettingsCtrl">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true" class="fa fa-times"></span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h3 class="modal-title" id="userLabel" data-ng-if="userFormData.isAdd">Add User</h3>
+                <h3 class="modal-title" id="userLabel" data-ng-if="!userFormData.isAdd">Edit User</h3>
+            </div>
+            <div class="modal-body">
+                <form role="form" novalidate data-ng-submit="">
+                    <fieldset data-ng-disabled="userFormData.isSaving">
+                        <div class="form-group" data-ng-class="{ 'has-error': userFormData.nameError }">
+                            <h5><span data-ng-if="!userFormData.isAdd">Change </span>Name</h5>
+                            <input class="form-control" type="text" placeholder="Name" data-ng-model="userFormData.name" data-focus="userFormData.setFocus">
+                        </div>
+                        <div class="form-group" data-ng-class="{ 'has-error': userFormData.usernameError }">
+                            <h5><span data-ng-if="!userFormData.isAdd">Change </span>Username</h5>
+                            <input class="form-control" type="text" placeholder="Username" data-ng-model="userFormData.username">
+                        </div>
+                        <div class="form-group" data-ng-class="{ 'has-error': userFormData.passError }">
+                            <h5><span data-ng-if="!userFormData.isAdd">Change </span>Password</h5>
+                            <input class="form-control" type="password" placeholder="Password" data-ng-model="userFormData.password">
+                        </div>
+                        <div class="form-group" data-ng-class="{ 'has-error': userFormData.passError }">
+                            <input class="form-control" type="password" placeholder="Verify Password" data-ng-model="userFormData.verifyPass">
+                        </div>
+                        <div class="form-group" data-ng-class="{ 'has-error': userFormData.emailError }">
+                            <h5><span data-ng-if="!userFormData.isAdd">Change </span>Email</h5>
+                            <input class="form-control" type="text" placeholder="Email" data-ng-model="userFormData.email">
+                        </div>
+                        <h5>Roles:</h5>
+			<div class="form-group col-md-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-ng-model="userFormData.isAdmin">
+                                    Admin
+                                </label>
+                            </div>
+			</div>
+			<div class="form-group col-md-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-ng-model="userFormData.isTech">
+                                    Tech
+                                </label>
+                            </div>
+                        </div>
+			<div class="form-group col-md-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-ng-model="userFormData.isWriter">
+                                    Writer
+                                </label>
+                            </div>
+                        </div>
+			<div class="form-group col-md-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-ng-model="userFormData.isManager">
+                                    Manager
+                                </label>
+                            </div>
+			</div>
+			<div class="form-group col-md-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-ng-model="userFormData.isSuperUser">
+                                    Super User
+                                </label>
+                            </div>
+                        </div>
+	                <div class="clearfix"></div>
+                        <div class="form-group col-md-3" data-ng-if="teamNames.length">
+                            <h5><span data-ng-if="!userFormData.isAdd">Select </span>Team
+                                <span class="fa fa-question-circle popover-dismiss pointer-cursor"
+                                      data-toggle="popover" data-placement="top"
+                                      data-content="Selecting a team adds the user to that team."
+                                      data-ng-if="userFormData.isAdd">
+                                </span>
+                            </h5>
+                            <select class="form-control" data-ng-model="userFormData.team" data-ng-options="team.id as team.name for team in teamNames">
+                                <option value="">None</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <h5>Current Workload</h5>
+                            <input class="form-control" type="text" placeholder="100" data-ng-model="userFormData.currentWorkload">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <h5>Max Workload</h5>
+                            <input class="form-control" type="text" placeholder="100" data-ng-model="userFormData.maxWorkload">
+                        </div>
+	                <div class="clearfix"></div>
+                        <div class="modal-footer">
+                            <button type="submit" id="modalAddUser" class="btn btn-info" data-ng-click="addUser(userFormData)" data-ng-if="userFormData.isAdd">
+                                <span class="fa fa-plus"></span> Add User
+                            </button>
+                            <button type="submit" id="modalEditUser" class="btn btn-info" data-ng-click="editUser(userFormData)" data-ng-if="!userFormData.isAdd">
+                                <span class="fa fa-save"></span> Save User
+                            </button>
+                            <a class="btn btn-default" data-ng-click="userFormData.cancel()">Cancel</a>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

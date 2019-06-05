@@ -1,0 +1,64 @@
+<div class="modal frontDeskRepairOrderModal" data-ng-class="{ fade: currentUser.options.showAnimations }" tabindex="-1" role="dialog" aria-labelledby="frontDeskRepairOrderLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="add" data-ng-controller="RepairOrderFormFrontDeskCtrl">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true" class="fa fa-times"></span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h3 class="modal-title" id="frontDeskRepairOrderLabel">Check In</h3>
+            </div>
+            <div class="modal-body">
+	        <div class="form-group col-md-2">
+                            <h5>Year:</h5>
+                            <input class="form-control" type="text" placeholder="year" data-ng-model="checkInFormData.year">
+                </div>
+	        <div class="form-group col-md-2">
+                            <h5>Color:</h5>
+                            <input class="form-control" type="text" placeholder="color" data-ng-model="checkInFormData.color">
+                </div>
+	        <div class="form-group col-md-3">
+                            <h5>Make:</h5>
+                            <input class="form-control" type="text" placeholder="make" data-ng-model="checkInFormData.make">
+                </div>
+	        <div class="form-group col-md-3">
+                            <h5>Model:</h5>
+                            <input class="form-control" type="text" placeholder="model" data-ng-model="checkInFormData.model">
+                </div>
+	        <div class="form-group col-md-12">
+                            <h5>Name:</h5>
+                            <input class="form-control" type="text" placeholder="Name" data-ng-model="checkInFormData.name">
+                </div>
+	        <div class="form-group col-md-4">
+                            <h5>Email:</h5>
+                            <input class="form-control" type="text" placeholder="email" data-ng-model="checkInFormData.email">
+                </div>
+	        <div class="form-group col-md-4">
+                            <h5>Home:</h5>
+                            <input class="form-control" type="text" placeholder="home phone" data-ng-model="checkInFormData.phoneNumber">
+                </div>
+	        <div class="form-group col-md-4">
+                            <h5>Cell:</h5>
+                            <input class="form-control" type="text" placeholder="cell" data-ng-model="checkInFormData.cell">
+                </div>
+	        <div class="form-group col-md-2">
+                            <h5>RO Number:</h5>
+                            <input class="form-control" type="text" placeholder="ro #" data-ng-model="checkInFormData.repairOrderNumber" data-focus="checkInFormData.setFocus">
+                </div>
+	        <div class="form-group col-md-2">
+                        <h5>Team:</h5>
+        		<select class="form-control" data-ng-model="boardNames.current" data-ng-change="selectBoard()"
+                                                     data-ng-options="board.id as board.name for board in boardNames | filter: isActiveFilter">
+        		</select>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                            <button type="submit" id="modalAddCheckIn" class="btn btn-info" data-ng-click="addCheckIn(checkInFormData)"> 
+                                Check In 
+                            </button>
+                            <a class="btn btn-default" data-ng-click="checkInFormData.cancel()">Cancel</a>
+            </div>
+	</div>
+    </div>
+</div>

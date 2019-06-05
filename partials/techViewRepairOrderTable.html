@@ -1,0 +1,47 @@
+<div id="checkInTable" class="table-responsive">
+    <table class="table table-striped"> 
+        <thead>
+            <tr>
+    		<th>RO #</th>
+    		<th>Lane</th>
+    		<th>Year</th>
+    		<th>Color</th>
+    		<th>Make</th>
+    		<th>Model</th>
+    		<th>Name</th> 
+    		<th>Action</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-if="loadingRepairOrders">
+                <td colspan="4" align="center"><span class="fa fa-refresh fa-spin"></span> Loading Repair Orders...</td>
+            </tr>
+            <tr data-ng-if="!loadingRepairOrders && !repairOrders.length">
+                <td colspan="4" align="center">Something went wrong while loading repair orders. Please refresh the page.</td>
+            </tr>
+            <tr data-ng-repeat="ro in repairOrders">
+                <td>{{ ro.repair_order_number }}</td>
+                <td>{{ repairLaneNames[ro.repair_lane] }}</td>
+                <td>{{ ro.year }}</td>
+                <td>{{ ro.color }}</td>
+                <td>{{ ro.make }}</td>
+                <td>{{ ro.model }}</td>
+                <td>{{ ro.name }}</td>
+                <td data-ng-if="ro.already_started == 0" width="250"><p>
+<a role="button" id="addStart{{ ro.checkInId }}" class="btn btn-info" data-ng-click="openAddStart(ro)" title="Start"> Start</a>
+                    <a disabled id="finishedTask{{ ro.checkInId }}" class="btn btn-info" title="Finished"
+                           data-ng-click="finishedTask(ro)"> Finished</a>
+                <p><a role="button" id="addSupplement{{ ro.checkInId }}" class="btn btn-info" data-ng-click="openAddSupplement(ro)" title="Supplement"> Supplement</a>
+                   <a role="button" id="totalLoss{{ ro.checkInId }}" class="btn btn-info" data-ng-click="totalLoss(ro)" title="Total Loss"> Total Loss</a>
+                </td>
+		<td data-ng-if="ro.already_started == 1" width="250"><p>
+<a disabled role="button" id="addStart{{ ro.checkInId }}" class="btn btn-info" data-ng-click="openAddStart(ro)" title="Start"> Start</a>
+                    <a id="finishedTask{{ ro.checkInId }}" class="btn btn-info" title="Finished"
+                           data-ng-click="finishedTask(ro)"> Finished</a>
+		<p><a role="button" id="addSupplement{{ ro.checkInId }}" class="btn btn-info" data-ng-click="openAddSupplement(ro)" title="Supplement"> Supplement</a>
+		   <a role="button" id="totalLoss{{ ro.checkInId }}" class="btn btn-info" data-ng-click="totalLoss(ro)" title="Total Loss"> Total Loss</a>
+		</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,62 @@
+<div id="checkInTable" class="table-responsive">
+    <table class="table table-striped"> 
+        <thead>
+            <tr>
+    		<th>RO #</th>
+    		<th>Team</th>
+    		<th>Year</th>
+    		<th>Make</th>
+    		<th>Model</th>
+    		<th>Color</th>
+    		<th>Name</th> 
+    		<th>Order Date</th> 
+    		<th>Received Date</th> 
+    		<th>Delivered Date</th> 
+    		<th>Back Ordered</th> 
+    		<th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-if="loadingRepairOrders">
+                <td colspan="4" align="center"><span class="fa fa-refresh fa-spin"></span> Loading Repair Orders...</td>
+            </tr>
+            <tr data-ng-if="!loadingRepairOrders && !repairOrders.length">
+                <td colspan="4" align="center">Something went wrong while loading repair orders. Please refresh the page.</td>
+            </tr>
+            <tr data-ng-repeat="ro in repairOrders">
+                <td><a role="link" id="roLink{{ ro.id }}" data-toggle="modal" data-target=".partsRepairOrderModal" data-ng-click="openRO(ro)" title="View RO"> {{ ro.repair_order_number }}</td>
+                <td>{{ teamNames[ro.team-1].name }}</td>
+                <td>{{ ro.year }}</td>
+                <td>{{ ro.make }}</td>
+                <td>{{ ro.model }}</td>
+                <td>{{ ro.color }}</td>
+                <td>{{ ro.name }}</td>
+                <td>{{ ro.order_date }}</td>
+                <td>{{ ro.received_date }}</td>
+                <td>{{ ro.delivered_date }}</td>
+                <td data-ng-if="(ro.critical_back_order == 1)">Critical Parts</td>
+                <td data-ng-if="((ro.back_ordered == 1) && !ro.critical_back_order)">Regular Parts</td>
+                <td data-ng-if="(ro.back_ordered == 0)">No Back Ordered Parts</td>
+                <td data-ng-if="!ro.back_ordered">No Back Ordered Parts</td>
+                <td>
+                <p>
+			<a role="button" id="partsOrdered_{{ro.repair_order_number}}" class="btn btn-info" data-toggle="modal" data-target=".partsOrderedModal" data-ng-click="openPartsOrdered(ro)" title="Parts Ordered">
+                	<span class="fa fa-plus"></span> Parts Ordered
+                	</a>
+			<a role="button" id="partsReceived_{{ro.repair_order_number}}" class="btn btn-info" data-toggle="modal" data-target=".partsReceivedModal" data-ng-click="openPartsReceived()" title="Parts Received">
+                	<span class="fa fa-plus"></span> Parts Received
+                	</a>
+		</p>
+		<p>
+			<a role="button" id="partsDelivered_{{ro.repair_order_number}}" class="btn btn-info" data-toggle="modal" data-target=".partsDeliveredModal" data-ng-click="openPartsDelivered()" title="Parts Delivered">
+                	<span class="fa fa-plus"></span> Parts Delivered
+                	</a>
+			<a role="button" id="partsBackOrdered_{{ro.repair_order_number}}" class="btn btn-info" data-toggle="modal" data-target=".partsBackOrderedModal" data-ng-click="openPartsBackOrdered()" title="Parts Back Ordered">
+                	<span class="fa fa-plus"></span> Back Ordered
+                	</a>
+		</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

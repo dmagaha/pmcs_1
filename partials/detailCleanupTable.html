@@ -1,0 +1,35 @@
+<div id="checkInTable" class="table-responsive">
+    <table class="table table-striped"> 
+        <thead>
+            <tr>
+    		<th>RO #</th>
+    		<th>Year</th>
+    		<th>Make</th>
+    		<th>Model</th>
+    		<th>Color</th>
+    		<th>Name</th> 
+    		<th>Action</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-if="loadingRepairOrders">
+                <td colspan="4" align="center"><span class="fa fa-refresh fa-spin"></span> Loading Repair Orders...</td>
+            </tr>
+            <tr data-ng-if="!loadingRepairOrders && !repairOrders.length">
+                <td colspan="4" align="center">Something went wrong while loading repair orders. Please refresh the page.</td>
+            </tr>
+            <tr data-ng-repeat="ro in repairOrders">
+                <td>{{ ro.repair_order_number }}</td>
+                <td>{{ ro.year }}</td>
+                <td>{{ ro.make }}</td>
+                <td>{{ ro.model }}</td>
+                <td>{{ ro.color }}</td>
+                <td>{{ ro.name }}</td>
+		<td width="250"><p><a role="button" id="addStart{{ ro.checkInId }}" class="btn btn-info" data-ng-click="openAddStart(ro)" title="Start"> Start</a>
+                    <a id="finishedTask{{ ro.checkInId }}" class="btn btn-info" title="Finished"
+                           data-ng-click="finishedTask(ro)"> Finished</a>
+		</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
